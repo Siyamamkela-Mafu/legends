@@ -12,4 +12,9 @@ public class GreetingsController {
     public String getGreeting(@PathVariable("message") String message){
         return message;
     }
+
+    @GetMapping("")
+    public String hello(){
+        return "Hello user";
+    }
 }
