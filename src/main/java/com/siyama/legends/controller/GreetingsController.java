@@ -17,4 +17,5 @@ public class GreetingsController {
     public String hello(){
         return "Hello user";
     }
+
 }
