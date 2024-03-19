@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,8 +20,9 @@ public class RequiredItemsController {
             @ApiResponse(responseCode = "400"),
             @ApiResponse(responseCode = "404")
     })
-    public String addItem(@PathVariable("eventId") String eventId, @RequestBody ItemRequestDto item){
 
-        return item + " for " +  eventId + " saved successfully";
+    //TODO :: Return an appropriate ResponseDto
+    public ResponseEntity<ItemRequestDto> addItem(@PathVariable("eventId") String eventId, @RequestBody ItemRequestDto item){
+        return ResponseEntity.ok(item);
     }
 }
