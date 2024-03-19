@@ -1,5 +1,6 @@
 package com.siyama.legends.controller;
 
+
 import com.siyama.legends.dtos.request.ItemRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class RequiredItemsController {
     @PostMapping(value = "/{eventId}",
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "")
+    @Operation(summary = "Add an item for each event")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200"),
             @ApiResponse(responseCode = "400"),
