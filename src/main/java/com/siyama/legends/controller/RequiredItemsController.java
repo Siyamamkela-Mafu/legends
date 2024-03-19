@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/required-items")
 public class RequiredItemsController {
     @PostMapping(value = "/{eventId}",
-            consumes = MediaType.APPLICATION_JSON_VALUE)
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Add an item for each event")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200"),
