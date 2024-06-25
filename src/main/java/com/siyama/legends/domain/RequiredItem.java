@@ -2,17 +2,16 @@ package com.siyama.legends.domain;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.math.BigDecimal;
 
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @Data
 @Document
-public class RequiredItem {
-    @MongoId
-    private String Id;
+public class RequiredItem extends IdentifiableDto {
     private String name;
     private BigDecimal unitPrice;
     private Integer quantity;
