@@ -1,5 +1,6 @@
 package com.siyama.legends.dtos.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,9 +16,11 @@ public class EventRequestDto {
     private String eventName;
     @Schema(example = "12-12-2024",
             description = "The format must be DD-MM-YYY")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date startDate;
     @Schema(example = "14-12-2024",
             description = "The format must be DD-MM-YYY")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date endDate;
     @Schema(example = "1")
     private Integer expectedPeople;
