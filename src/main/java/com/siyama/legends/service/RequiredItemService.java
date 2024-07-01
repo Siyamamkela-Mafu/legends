@@ -1,8 +1,13 @@
 package com.siyama.legends.service;
 
-import com.siyama.legends.domain.RequiredItem;
-import com.siyama.legends.dtos.request.ItemRequestDto;
+import com.siyama.legends.dtos.request.RequiredItemRequestDto;
+import com.siyama.legends.dtos.response.RequiredItemsBudgetResponseDto;
+import com.siyama.legends.dtos.response.SaveResponseDto;
+
+import java.util.Optional;
 
 public interface RequiredItemService {
-    RequiredItem saveRequiredItem(String eventId, ItemRequestDto itemRequirement);
+    Boolean checkIfExists(String name);
+    SaveResponseDto saveRequiredItem(String eventId, RequiredItemRequestDto itemRequirement);
+    Optional<RequiredItemsBudgetResponseDto> getRequiredItems(String eventId);
 }

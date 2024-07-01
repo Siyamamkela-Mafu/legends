@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Builder
 @Data
 @Document
-public class RequiredItem extends IdentifiableDto {
+public class RequiredItem extends ParentDomain {
     private String name;
     private BigDecimal unitPrice;
     private Integer quantity;

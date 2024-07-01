@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.Date;
 
@@ -12,7 +11,7 @@ import java.util.Date;
 @Builder
 @Data
 @Document
-public class Event extends IdentifiableDto {
+public class Event extends ParentDomain {
     private String eventName;
     private Date startDate;
     private Date endDate;

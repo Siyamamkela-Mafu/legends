@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemRequestDto {
+public class RequiredItemRequestDto {
     @Schema(example = "Potato")
     private String name;
     @Schema(example = "19.99", description = "The current currency is in ZAR")
