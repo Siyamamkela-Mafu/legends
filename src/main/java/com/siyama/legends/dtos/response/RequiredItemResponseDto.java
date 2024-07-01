@@ -1,18 +1,16 @@
 package com.siyama.legends.dtos.response;
 
-import com.siyama.legends.domain.IdentifiableDto;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.math.BigDecimal;
 
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-public class ItemResponseDto extends IdentifiableDto {
+@NoArgsConstructor
+public class RequiredItemResponseDto extends ParentDto {
     private String name;
     private BigDecimal unitPrice;
     private Integer quantity;
-    private String eventId;
 }
