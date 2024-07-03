@@ -8,6 +8,7 @@ import com.siyama.legends.service.RequiredItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,8 +35,8 @@ public class RequiredItemsController {
     //TODO :: Return an appropriate ResponseDto
     public ResponseEntity<String> addItem(
             @PathVariable("eventId") String eventId,
-            @RequestBody RequiredItemRequestDto item,
-            @RequestParam(value = "force", defaultValue = "false") boolean force
+            @RequestParam(value = "force", defaultValue = "false") boolean force,
+            @RequestBody @Valid RequiredItemRequestDto item
             ) {
         Boolean requiredItemExists = requiredItemService.checkIfExists(item.getName());
         if(requiredItemExists && !force){
