@@ -8,10 +8,10 @@ public class SaveResponseDto {
     }
 
     public String successful() {
-        return "{\"success\": \"" + savedObject + " saved successfully\"}";
+        return "{\"success\": \"" + this.savedObject + " saved successfully\"}";
     }
     public String alreadyExists() {
-        return "{\"message\": \"The " + savedObject + " already exists. Do you want to continue creating a new record? Add 'force=true' to the request.\"}";
+        return "{\"message\": \"The " + this.savedObject + " already exists. Do you want to continue creating a new record? Add 'force=true' to the request.\"}";
 
     }
 }

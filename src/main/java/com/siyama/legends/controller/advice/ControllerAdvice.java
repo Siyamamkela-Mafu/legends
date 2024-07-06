@@ -1,6 +1,7 @@
 package com.siyama.legends.controller.advice;
 
 import com.siyama.legends.domain.Error;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Objects;
 
+@Slf4j
 @RestControllerAdvice
 public class ControllerAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -18,6 +20,7 @@ public class ControllerAdvice {
                 .statusCode(HttpStatus.BAD_REQUEST.toString())
                 .retryAfter(0)
                 .build();
+        log.error(String.valueOf(error));
         return ResponseEntity.badRequest().body(error);
     }
 }

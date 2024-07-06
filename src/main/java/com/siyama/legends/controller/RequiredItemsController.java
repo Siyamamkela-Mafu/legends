@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/required-items")
@@ -37,11 +39,15 @@ public class RequiredItemsController {
             @PathVariable("eventId") String eventId,
             @RequestParam(value = "force", defaultValue = "false") boolean force,
             @RequestBody @Valid RequiredItemRequestDto item
-            ) {
+    ) {
+        log.info(String.format("POST /api/required-items/:eventId item: [ %s ] ", item));
         Boolean requiredItemExists = requiredItemService.checkIfExists(item.getName());
-        if(requiredItemExists && !force){
+        if (requiredItemExists && !force) {
+            var response = new SaveResponseDto(item.getName()).alreadyExists();
+
+            log.error(String.format("ERROR %s", response));
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new SaveResponseDto(item.getName()).alreadyExists());
+                    .body(response);
         }
         var response = requiredItemService.saveRequiredItem(eventId, item);
         return ResponseEntity.ok(response.successful());
@@ -54,9 +60,10 @@ public class RequiredItemsController {
             @ApiResponse(responseCode = "400"),
             @ApiResponse(responseCode = "404")
     })
-
     public ResponseEntity<Optional<RequiredItemsBudgetResponseDto>> getItems(
             @PathVariable("eventId") String eventId) {
+        log.info(String.format("GET /api/required-items/:eventId   eventId : [ %s ]", eventId));
+
         var items = requiredItemService.getRequiredItems(eventId);
         return ResponseEntity.ok(items);
     }
