@@ -1,9 +1,9 @@
 package com.siyama.legends.service;
 
 
-import com.siyama.legends.domain.Event;
 import com.siyama.legends.dtos.request.EventRequestDto;
+import com.siyama.legends.dtos.response.SaveResponseDto;
 
 public interface EventService {
-    Event saveEvent(EventRequestDto eventRequestDto);
+    SaveResponseDto saveEvent(EventRequestDto eventRequestDto);
 }
