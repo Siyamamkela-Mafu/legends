@@ -21,7 +21,7 @@ public class RequiredItemServiceImpl implements RequiredItemService {
     private final RequirementRepository requirementRepository;
 
     @Override
-    public Boolean checkIfExists(String name) {
+    public boolean checkIfExists(String name) {
         return requirementRepository.existsByNameContaining(name.trim());
     }
 

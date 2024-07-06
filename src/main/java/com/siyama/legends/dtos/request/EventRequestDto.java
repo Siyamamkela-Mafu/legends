@@ -23,8 +23,8 @@ public class EventRequestDto {
     @Schema(example = "Gala dinner")
     @NotNull(message = "eventName is required")
     @NotEmpty(message = "eventName is required")
-    @Pattern(regexp = Constants.SPECIAL_CHARACTERS_PATTERN, message = "eventName must contain only letters and numbers")
-    private String eventName;
+    @Pattern(regexp = Constants.SPECIAL_CHARACTERS_PATTERN, message = "name must contain only letters and numbers")
+    private String name;
 
     @Schema(example = "12-12-2024",
             description = "The format must be DD-MM-YYY")
