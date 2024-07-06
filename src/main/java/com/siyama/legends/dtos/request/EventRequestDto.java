@@ -3,7 +3,6 @@ package com.siyama.legends.dtos.request;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.siyama.legends.utils.Constants;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -19,10 +18,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventRequestDto {
-    @Valid
     @Schema(example = "Gala dinner")
-    @NotNull(message = "eventName is required")
-    @NotEmpty(message = "eventName is required")
+    @NotNull(message = "name is required")
+    @NotEmpty(message = "name is required")
     @Pattern(regexp = Constants.SPECIAL_CHARACTERS_PATTERN, message = "name must contain only letters and numbers")
     private String name;
 

@@ -1,6 +1,7 @@
 package com.siyama.legends.controller.advice;
 
 import com.siyama.legends.domain.Error;
+import com.siyama.legends.exception.ObjectAlreadyExistsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +25,17 @@ public class ControllerAdvice {
                 .build();
         log.error(String.valueOf(error));
         return ResponseEntity.badRequest().body(error);
+    }
+
+    @ExceptionHandler({ObjectAlreadyExistsException.class})
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<Error> handle(final ObjectAlreadyExistsException e) {
+        var error = Error.builder()
+                .message(e.getMessage())
+                .statusCode(String.valueOf(HttpStatus.CONFLICT.value()))
+                .retryAfter(0)
+                .build();
+        log.error(String.valueOf(error));
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
 }

@@ -4,10 +4,10 @@ package com.siyama.legends.controller;
 import com.siyama.legends.dtos.request.RequiredItemRequestDto;
 import com.siyama.legends.dtos.response.RequiredItemsBudgetResponseDto;
 import com.siyama.legends.service.RequiredItemService;
-import com.siyama.legends.utils.LegendsUtility;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@Tag(name = "Required Items")
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -31,19 +32,16 @@ public class RequiredItemsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200"),
             @ApiResponse(responseCode = "400"),
-            @ApiResponse(responseCode = "404")
+            @ApiResponse(responseCode = "404"),
+            @ApiResponse(responseCode = "409")
     })
     public ResponseEntity<String> addItem(
             @PathVariable("eventId") String eventId,
-            @RequestParam(value = "force", defaultValue = "false") boolean force,
+            @RequestParam(value = "force", defaultValue = "false") boolean forceSave,
             @RequestBody @Valid RequiredItemRequestDto item
     ) {
         log.info(String.format("POST /api/required-items/:eventId item: [ %s ] ", item));
-        boolean requiredItemExists = requiredItemService.checkIfExists(item.getName());
-        if (requiredItemExists && !force) {
-            return LegendsUtility.objectExistsAndNotForced(item.getName());
-        }
-        var response = requiredItemService.saveRequiredItem(eventId, item);
+        var response = requiredItemService.saveRequiredItem(eventId, item, forceSave);
         return ResponseEntity.ok(response.successful());
     }
 
@@ -52,7 +50,8 @@ public class RequiredItemsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200"),
             @ApiResponse(responseCode = "400"),
-            @ApiResponse(responseCode = "404")
+            @ApiResponse(responseCode = "404"),
+            @ApiResponse(responseCode = "409")
     })
     public ResponseEntity<Optional<RequiredItemsBudgetResponseDto>> getItems(
             @PathVariable("eventId") String eventId) {

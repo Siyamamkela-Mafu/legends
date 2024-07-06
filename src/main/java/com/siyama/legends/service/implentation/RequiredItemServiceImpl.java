@@ -7,6 +7,7 @@ import com.siyama.legends.dtos.response.RequiredItemsBudgetResponseDto;
 import com.siyama.legends.dtos.response.SaveResponseDto;
 import com.siyama.legends.repository.RequirementRepository;
 import com.siyama.legends.service.RequiredItemService;
+import com.siyama.legends.utils.LegendsUtility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,13 @@ public class RequiredItemServiceImpl implements RequiredItemService {
     }
 
     @Override
-    public SaveResponseDto saveRequiredItem(String eventId, RequiredItemRequestDto requiredItemRequestDto) {
+    public SaveResponseDto saveRequiredItem(String eventId, RequiredItemRequestDto requiredItemRequestDto, boolean forceSave) {
         RequiredItem requiredItem = buildItemRequiredRequestDto(eventId, requiredItemRequestDto);
+
+        boolean requiredItemExists = this.checkIfExists(requiredItem.getName());
+        if (requiredItemExists && !forceSave) {
+            LegendsUtility.objectExistsAndNotForced(requiredItem.getName());
+        }
         requirementRepository.save(requiredItem);
         return new SaveResponseDto("Required item");
     }

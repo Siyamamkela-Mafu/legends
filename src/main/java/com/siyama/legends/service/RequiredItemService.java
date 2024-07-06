@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface RequiredItemService {
     boolean checkIfExists(String name);
-    SaveResponseDto saveRequiredItem(String eventId, RequiredItemRequestDto itemRequirement);
+    SaveResponseDto saveRequiredItem(String eventId, RequiredItemRequestDto itemRequirement, boolean forceSave);
     Optional<RequiredItemsBudgetResponseDto> getRequiredItems(String eventId);
 }
