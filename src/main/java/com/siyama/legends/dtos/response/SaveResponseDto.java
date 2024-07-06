@@ -11,7 +11,7 @@ public class SaveResponseDto {
         return "{\"success\": \"" + this.savedObject + " saved successfully\"}";
     }
     public String alreadyExists() {
-        return "{\"message\": \"The " + this.savedObject + " already exists. Do you want to continue creating a new record? Add 'force=true' to the request.\"}";
+        return "{\"message\": \"" + this.savedObject + " already exists. Do you want to continue creating a new record? Add 'force=true' to the request.\"}";
 
     }
 }

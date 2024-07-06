@@ -4,8 +4,8 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Builder
 @EqualsAndHashCode(callSuper = true)
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
