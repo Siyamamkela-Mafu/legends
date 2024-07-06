@@ -1,4 +1,4 @@
-package com.siyama.legends.security;
+package com.siyama.legends.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
