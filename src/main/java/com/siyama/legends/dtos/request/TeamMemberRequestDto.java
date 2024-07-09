@@ -36,7 +36,7 @@ public class TeamMemberRequestDto {
     @Pattern(regexp = Constants.EMAIL_COMPLIANT_FORMAT,
             message = "email must contain @ and .")
     private String email;
-    private String[] role;
+    private String[] roles;
     @JsonIgnore
     private String teamId;
 }

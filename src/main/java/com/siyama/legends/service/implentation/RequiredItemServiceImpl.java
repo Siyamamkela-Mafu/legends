@@ -68,6 +68,7 @@ public class RequiredItemServiceImpl implements RequiredItemService {
                 name(requiredItemRequestDto.getName())
                 .unitPrice(requiredItemRequestDto.getUnitPrice())
                 .eventId(eventId)
+                .teamMemberIds(requiredItemRequestDto.teamMemberIds)
                 .build();
     }
 
