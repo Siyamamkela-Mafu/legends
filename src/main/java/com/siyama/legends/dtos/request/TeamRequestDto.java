@@ -19,7 +19,6 @@ public class TeamRequestDto {
     @NotEmpty(message = "name is required")
     @Pattern(regexp = Constants.SPECIAL_CHARACTERS_PATTERN, message = "name must contain only letters and numbers")
     private String name;
-
     @JsonIgnore
     private String organisationId;
 }
