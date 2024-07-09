@@ -3,7 +3,6 @@ package com.siyama.legends;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -19,12 +18,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                         email = "mafusiyamamkela@gmail.com"
                 )
 
-        ),
-        servers = {
-                @Server(
-                        url = "https://legends-5g0z.onrender.com"
-                )
-        }
+        )
 )
 @SpringBootApplication
 public class LegendsApplication {
