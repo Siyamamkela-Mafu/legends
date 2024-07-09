@@ -22,7 +22,7 @@ public class EventServiceImpl implements EventService {
 
     private Event buildEvent(EventRequestDto eventRequestDto) {
         return Event.builder()
-                .eventName(eventRequestDto.getName())
+                .name(eventRequestDto.getName())
                 .startDate(eventRequestDto.getStartDate())
                 .endDate(eventRequestDto.getEndDate())
                 .expectedPeople(eventRequestDto.getExpectedPeople())
