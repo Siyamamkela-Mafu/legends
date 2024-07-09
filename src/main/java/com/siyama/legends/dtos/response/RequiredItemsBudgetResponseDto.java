@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RequiredItemsBudgetResponseDto {
     private List<RequiredItemResponseDto> items;
-    private String eventId;
+    private ItemDetailEventResponseDto event;
     private Integer totalItems;
     private BigDecimal estimatedTotalCost = BigDecimal.valueOf(0);
 }

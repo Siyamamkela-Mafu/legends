@@ -23,6 +23,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         servers = {
                 @Server(
                         url = "http://localhost:8080"
+                ),
+                @Server(
+                        url = "https://legends-5g0z.onrender.com"
                 )
         }
 )

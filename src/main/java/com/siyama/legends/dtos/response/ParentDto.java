@@ -1,12 +1,10 @@
 package com.siyama.legends.dtos.response;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+
+@Data
 public class ParentDto {
-
-    public String id;
+    private String id;
 }
