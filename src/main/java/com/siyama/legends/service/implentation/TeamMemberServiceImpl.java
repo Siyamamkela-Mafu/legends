@@ -9,6 +9,8 @@ import com.siyama.legends.utils.LegendsUtility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+
 @Service
 @RequiredArgsConstructor
 public class TeamMemberServiceImpl implements TeamMemberService {
@@ -35,7 +37,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 .name(teamMemberRequestDto.getName())
                 .surname(teamMemberRequestDto.getSurname())
                 .email(teamMemberRequestDto.getEmail())
-                .roles(teamMemberRequestDto.getRoles())
+                .roles(Arrays.toString(teamMemberRequestDto.getRoles()))
                 .teamId(teamMemberRequestDto.getTeamId())
                 .contactNo(teamMemberRequestDto.getContactNo())
                 .isActive(true)

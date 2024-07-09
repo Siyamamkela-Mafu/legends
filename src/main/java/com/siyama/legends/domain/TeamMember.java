@@ -14,7 +14,7 @@ public class TeamMember extends ParentDomain {
     private String surname;
     private String contactNo;
     private String email;
-    private String[] roles;
+    private String roles;
     private String teamId;
     private Boolean isActive;
 }
