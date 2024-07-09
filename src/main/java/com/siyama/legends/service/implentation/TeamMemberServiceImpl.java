@@ -35,7 +35,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 .name(teamMemberRequestDto.getName())
                 .surname(teamMemberRequestDto.getSurname())
                 .email(teamMemberRequestDto.getEmail())
-                .role(teamMemberRequestDto.getRole())
+                .roles(teamMemberRequestDto.getRoles())
                 .teamId(teamMemberRequestDto.getTeamId())
                 .contactNo(teamMemberRequestDto.getContactNo())
                 .isActive(true)

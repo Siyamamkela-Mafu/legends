@@ -29,4 +29,6 @@ public class RequiredItemRequestDto {
     @NotNull(message = "quantity is required")
     @Min(value = 1, message = "quantity cannot be zero or less")
     private Integer quantity;
+    @NotEmpty(message = "Required item must be assign to a person or people")
+    public String[] teamMemberIds;
 }
