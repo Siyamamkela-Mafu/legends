@@ -6,7 +6,8 @@
 3. [Getting Started](#getting-Started)
 4. [Stack used](#stack-used)
 5. [To be added](#to-be-added)
-6. [Disclaimer](#disclaimer)
+6. [Design Architecture](#design-architecture)
+7. [Disclaimer](#disclaimer)
 
 # Introduction
 
@@ -41,6 +42,9 @@ Stay Notified: Ensure that all team members are notified of their assignments to
 
 # To-be-added
 * Mapstruct for mapping DTOs to domain objects
+
+# Design-Architecture
+![img.png](img.png)
 
 # Disclaimer
 **_To access the project and test, you will need to have a GitHub account:_**
