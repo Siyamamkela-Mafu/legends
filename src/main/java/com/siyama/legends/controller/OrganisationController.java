@@ -39,7 +39,7 @@ public class OrganisationController {
             @RequestBody @Valid OrganisationRequestDto organisationRequestDto
     ) {
         log.info(String.format("POST /api/organisations/ organisation: [ %s ] ", organisationRequestDto));
-       var response = organisationService.saveOrganisation(organisationRequestDto, forceSave);
+        var response = organisationService.saveOrganisation(organisationRequestDto, forceSave);
         return ResponseEntity.ok(response.successful());
     }
 }

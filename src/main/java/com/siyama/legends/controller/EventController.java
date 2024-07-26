@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RequestMapping("api/events")
 public class EventController {
-
     private final EventService eventService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
