@@ -26,6 +26,7 @@ public class RequiredItemServiceImpl implements RequiredItemService {
     private final TeamMemberRepository teamMemberRepository;
     private final EventRepository eventRepository;
 
+
     @Override
     public boolean checkIfExists(String name) {
         return requirementRepository.existsByNameContaining(name.trim());
@@ -79,6 +80,7 @@ public class RequiredItemServiceImpl implements RequiredItemService {
                 .map(this::buildTeamMemberResponseDto)
                 .collect(Collectors.toList());
     }
+
     private TeamMemberResponseDto buildTeamMemberResponseDto(TeamMember teamMember) {
         return TeamMemberResponseDto.builder()
                 .id(teamMember.id)
@@ -86,12 +88,14 @@ public class RequiredItemServiceImpl implements RequiredItemService {
                 .surname(teamMember.getSurname())
                 .build();
     }
+
     private ItemDetailEventResponseDto buildEventResponseDto(Event event) {
         return ItemDetailEventResponseDto.builder()
                 .id(event.id)
                 .name(event.getName())
                 .build();
     }
+
     private RequiredItem buildItemRequiredRequestDto(String eventId, RequiredItemRequestDto requiredItemRequestDto) {
         return RequiredItem.builder()
                 .quantity(requiredItemRequestDto.getQuantity()).
@@ -101,6 +105,7 @@ public class RequiredItemServiceImpl implements RequiredItemService {
                 .teamMemberIds(requiredItemRequestDto.teamMemberIds)
                 .build();
     }
+
     private List<RequiredItemResponseDto> buildItemsRequiredResponseDto(List<RequiredItem> requiredItems) {
         List<RequiredItemResponseDto> requiredItemsResponseDto = new ArrayList<>();
         requiredItems.forEach(requiredItem -> {
