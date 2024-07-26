@@ -53,13 +53,14 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         var team = teamRepository.findById(teamMemberRequestDto.getTeamId());
 
         if (team.isPresent()) {
-            body = String.format("You have been successfully assigned to a team.\n\n\nWelcome to the %s team", team.get().getName());
+            body = String.format("You have been successfully assigned to the %s team", team.get().getName());
         } else
             throw new DoesNotExistException("Team");
 
         return EmailMessageDto
                 .builder()
                 .toEmail(teamMemberRequestDto.getEmail())
+                .toName(teamMemberRequestDto.getName())
                 .subject(String.format("Legends Team Assignment | %s", teamMemberRequestDto.getName()))
                 .body(body)
                 .build();

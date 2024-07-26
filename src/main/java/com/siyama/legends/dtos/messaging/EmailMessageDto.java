@@ -9,6 +9,7 @@ import lombok.*;
 @RequiredArgsConstructor
 public class EmailMessageDto {
     private String toEmail;
+    private String toName;
     private String subject;
     private String body;
     private String additionalInfo;
