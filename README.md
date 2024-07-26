@@ -1,4 +1,4 @@
-[**Legends Service**](https://legends-5g0z.onrender.com/swagger-ui/index.html?continue)
+[**Legends by Siyama**](https://legends-5g0z.onrender.com/swagger-ui/index.html?continue)
 
 ## Table of Contents
 1. [Introduction](#introduction)
