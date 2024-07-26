@@ -39,6 +39,7 @@ Stay Notified: Ensure that all team members are notified of their assignments to
 * RabbitMQ
 * Docker
 * Lombok
+* Thymeleaf
 
 # To-be-added
 * Mapstruct for mapping DTOs to domain objects
