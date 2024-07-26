@@ -1,6 +1,7 @@
 package com.siyama.legends.controller.advice;
 
 import com.siyama.legends.domain.Error;
+import com.siyama.legends.exception.DoesNotExistException;
 import com.siyama.legends.exception.ObjectAlreadyExistsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -37,5 +38,17 @@ public class ControllerAdvice {
                 .build();
         log.error(String.valueOf(error));
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    @ExceptionHandler({DoesNotExistException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Error> handle(final DoesNotExistException e) {
+        var error = Error.builder()
+                .message(e.getMessage())
+                .statusCode(String.valueOf(HttpStatus.BAD_REQUEST.value()))
+                .retryAfter(0)
+                .build();
+        log.error(String.valueOf(error));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }
