@@ -38,12 +38,11 @@ public class EventController {
             @ApiResponse(responseCode = "409")
     })
 
-    //TODO :: Return an appropriate ResponseDto
     public ResponseEntity<SaveResponseDto> addEvent(
             @Valid @RequestBody EventRequestDto eventRequestDto
     ) {
         log.info(String.format("POST /api/event %s", eventRequestDto));
-        var response =  eventService.saveEvent(eventRequestDto);
+        var response = eventService.saveEvent(eventRequestDto);
         return ResponseEntity.ok(response);
     }
 }
