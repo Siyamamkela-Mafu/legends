@@ -44,7 +44,7 @@ Stay Notified: Ensure that all team members are notified of their assignments to
 # To-be-added
 * Mapstruct for mapping DTOs to domain objects
 * Spring Boot Actuator
-* Rate Limiting
+* Rate Limiting using Spring Cloud Gateway
 * Signin with Google
 
 # Design-Architecture
