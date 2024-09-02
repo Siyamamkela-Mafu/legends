@@ -1,23 +1,24 @@
 package com.siyama.legends.dtos.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.siyama.legends.utils.Constants;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventRequestDto {
+    @JsonIgnore
+    private String organisationId;
     @Schema(example = "Gala dinner")
     @NotNull(message = "name is required")
     @NotEmpty(message = "name is required")
@@ -28,23 +29,22 @@ public class EventRequestDto {
             description = "The format must be DD-MM-YYY")
     @JsonFormat(pattern = "dd-MM-yyyy")
     @NotNull(message = "startDate is required")
-    @NotEmpty(message = "startDate is required")
+    @FutureOrPresent(message = "startDate must be today or in the future")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date startDate;
+    private LocalDate startDate;
 
     @Schema(example = "14-12-2024",
             description = "The format must be DD-MM-YYY")
     @JsonFormat(pattern = "dd-MM-yyyy")
 
     @NotNull(message = "endDate is required")
-    @NotEmpty(message = "endDate is required")
+    @FutureOrPresent(message = "endDate must be today or in the future")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date endDate;
+    private LocalDate endDate;
 
     @Schema(example = "1")
     @NotNull(message = "expectedPeople is required")
-    @NotEmpty(message = "expectedPeople is required")
-    @Size(min = 1, max = 999999999, message = "expectedPeople cannot be less than 1")
+    @Min(value = 1, message = "expectedPeople cannot be less than 1")
     private Integer expectedPeople;
 
     @Schema(example = "Gqeberha")

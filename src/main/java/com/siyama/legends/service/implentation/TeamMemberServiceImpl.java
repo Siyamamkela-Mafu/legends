@@ -1,42 +1,44 @@
 package com.siyama.legends.service.implentation;
 
-import com.nimbusds.jose.shaded.gson.Gson;
-import com.siyama.legends.domain.TeamMember;
+
+import com.google.gson.Gson;
 import com.siyama.legends.dtos.messaging.EmailMessageDto;
 import com.siyama.legends.dtos.request.TeamMemberRequestDto;
 import com.siyama.legends.dtos.response.SaveResponseDto;
 import com.siyama.legends.exception.DoesNotExistException;
+import com.siyama.legends.mapper.TeamMemberMapper;
 import com.siyama.legends.repository.TeamMemberRepository;
 import com.siyama.legends.repository.TeamRepository;
 import com.siyama.legends.service.TeamMemberService;
 import com.siyama.legends.utils.LegendsUtility;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-
 @Service
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class TeamMemberServiceImpl implements TeamMemberService {
 
-    private final TeamMemberRepository teamMemberRepository;
-    private final TeamRepository teamRepository;
-    private final RabbitTemplate rabbitTemplate;
+    private TeamMemberRepository teamMemberRepository;
+    private TeamRepository teamRepository;
+    private RabbitTemplate rabbitTemplate;
+    private TeamMemberMapper teamMemberMapper;
     @Value("${legends.email.notification.queue}")
     private String emailQueue;
 
     @Override
     public SaveResponseDto saveTeamMember(TeamMemberRequestDto teamMemberRequestDto, boolean forceSave) {
-        var teamMember = buildTeamMemberDomain(teamMemberRequestDto);
+        var teamMember = teamMemberMapper.teamMemberDtoToTeamMember(teamMemberRequestDto);
         boolean requiredItemExists = checkIfExists(teamMemberRequestDto.getName(), teamMemberRequestDto.getSurname());
         if (requiredItemExists && !forceSave) {
             LegendsUtility.objectExistsAndNotForced(String.format("%s %s ", teamMember.getName(), teamMember.getSurname()));
         }
         var response = teamMemberRepository.save(teamMember);
 
-        if(!response.id.isEmpty()){
+        if (!response.id.isEmpty()) {
             this.sendEmailMessage(teamMemberRequestDto);
         }
         return new SaveResponseDto("team member");
@@ -68,18 +70,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     private boolean checkIfExists(String name, String surname) {
         return teamMemberRepository.existsByNameAndSurnameAndIsActiveTrue(name, surname);
-    }
-
-    private TeamMember buildTeamMemberDomain(TeamMemberRequestDto teamMemberRequestDto) {
-        return TeamMember.builder()
-                .name(teamMemberRequestDto.getName())
-                .surname(teamMemberRequestDto.getSurname())
-                .email(teamMemberRequestDto.getEmail())
-                .roles(Arrays.toString(teamMemberRequestDto.getRoles()))
-                .teamId(teamMemberRequestDto.getTeamId())
-                .contactNo(teamMemberRequestDto.getContactNo())
-                .isActive(true)
-                .build();
     }
 
 }

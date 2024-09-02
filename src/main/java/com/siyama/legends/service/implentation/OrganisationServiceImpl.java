@@ -1,23 +1,24 @@
 package com.siyama.legends.service.implentation;
 
-import com.siyama.legends.domain.Organisation;
 import com.siyama.legends.dtos.request.OrganisationRequestDto;
 import com.siyama.legends.dtos.response.SaveResponseDto;
+import com.siyama.legends.mapper.OrganisationMapper;
 import com.siyama.legends.repository.OrganisationRepository;
 import com.siyama.legends.service.OrganisationService;
 import com.siyama.legends.utils.LegendsUtility;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class OrganisationServiceImpl implements OrganisationService {
 
-    private final OrganisationRepository organisationRepository;
+    private OrganisationRepository organisationRepository;
+    private OrganisationMapper organisationMapper;
 
     @Override
     public SaveResponseDto saveOrganisation(OrganisationRequestDto organisationRequestDto, boolean forceSave) {
-        var organisation = buildOrganisation(organisationRequestDto);
+        var organisation = organisationMapper.organisationDtoToOrganisation(organisationRequestDto);
 
         boolean organisationExists = this.checkIfExists(organisationRequestDto.getName());
 
@@ -32,12 +33,4 @@ public class OrganisationServiceImpl implements OrganisationService {
     public Boolean checkIfExists(String organisationName) {
         return organisationRepository.existsByNameAndIsActiveTrue(organisationName);
     }
-
-    private Organisation buildOrganisation(OrganisationRequestDto organisationRequestDto) {
-        return Organisation.builder()
-                .name(organisationRequestDto.getName())
-                .isActive(true)
-                .build();
-    }
-
 }

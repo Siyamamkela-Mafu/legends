@@ -5,12 +5,14 @@ import com.siyama.legends.domain.RequiredItem;
 import com.siyama.legends.domain.TeamMember;
 import com.siyama.legends.dtos.request.RequiredItemRequestDto;
 import com.siyama.legends.dtos.response.*;
+import com.siyama.legends.mapper.RequiredItemMapper;
+import com.siyama.legends.mapper.TeamMemberMapper;
 import com.siyama.legends.repository.EventRepository;
 import com.siyama.legends.repository.RequirementRepository;
 import com.siyama.legends.repository.TeamMemberRepository;
 import com.siyama.legends.service.RequiredItemService;
 import com.siyama.legends.utils.LegendsUtility;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -20,11 +22,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class RequiredItemServiceImpl implements RequiredItemService {
-    private final RequirementRepository requirementRepository;
-    private final TeamMemberRepository teamMemberRepository;
-    private final EventRepository eventRepository;
+    private RequirementRepository requirementRepository;
+    private TeamMemberRepository teamMemberRepository;
+    private EventRepository eventRepository;
+    private TeamMemberMapper teamMemberMapper;
+    private RequiredItemMapper requiredItemMapper;
 
 
     @Override
@@ -34,7 +38,7 @@ public class RequiredItemServiceImpl implements RequiredItemService {
 
     @Override
     public SaveResponseDto saveRequiredItem(String eventId, RequiredItemRequestDto requiredItemRequestDto, boolean forceSave) {
-        RequiredItem requiredItem = buildItemRequiredRequestDto(eventId, requiredItemRequestDto);
+        RequiredItem requiredItem = requiredItemMapper.requiredItemDtoToRequiredItem(requiredItemRequestDto);
 
         boolean requiredItemExists = this.checkIfExists(requiredItem.getName());
         if (requiredItemExists && !forceSave) {
@@ -56,7 +60,7 @@ public class RequiredItemServiceImpl implements RequiredItemService {
         event.ifPresent(value -> requiredItemsBudgetResponseDto.setEvent(buildEventResponseDto(value)));
 
         if (requiredItems.size() > 0) {
-            var requiredItemResponseDto = buildItemsRequiredResponseDto(requiredItems);
+            var requiredItemResponseDto = buildItemsRequiredResponseDto(requiredItems);  //Replace with Mapper
             requiredItemsBudgetResponseDto.setItems(requiredItemResponseDto);
 
             Integer totalItems = requiredItems.size();
@@ -96,15 +100,6 @@ public class RequiredItemServiceImpl implements RequiredItemService {
                 .build();
     }
 
-    private RequiredItem buildItemRequiredRequestDto(String eventId, RequiredItemRequestDto requiredItemRequestDto) {
-        return RequiredItem.builder()
-                .quantity(requiredItemRequestDto.getQuantity()).
-                name(requiredItemRequestDto.getName())
-                .unitPrice(requiredItemRequestDto.getUnitPrice())
-                .eventId(eventId)
-                .teamMemberIds(requiredItemRequestDto.teamMemberIds)
-                .build();
-    }
 
     private List<RequiredItemResponseDto> buildItemsRequiredResponseDto(List<RequiredItem> requiredItems) {
         List<RequiredItemResponseDto> requiredItemsResponseDto = new ArrayList<>();
